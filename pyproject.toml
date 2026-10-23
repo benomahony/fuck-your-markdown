@@ -1,7 +1,7 @@
 [project]
-name = "fym"
+name = "fuck-your-markdown"
 version = "0.1.0"
-description = "Add your description here"
+description = "Fuck your markdown. Turn agent prose into enforceable checks."
 readme = "README.md"
 authors = [
     { name = "benomahony", email = "bomarni@googlemail.com" }
@@ -12,9 +12,16 @@ dependencies = [
     "typer>=0.27.3",
 ]
 
+[project.urls]
+Repository = "https://github.com/benomahony/fuck-your-markdown"
+Issues = "https://github.com/benomahony/fuck-your-markdown/issues"
+
 [project.scripts]
 fym = "fym:app"
 
 [build-system]
 requires = ["uv_build>=0.13.4,<0.14.0"]
 build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "fym"

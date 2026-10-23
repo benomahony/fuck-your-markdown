@@ -1,6 +1,22 @@
-# fym
+# fuck-your-markdown
 
-Fuck your markdown. A linter for repos where coding agents keep leaving specs, plans and completion reports behind.
+**Fuck your markdown. Ship checks that actually fucking run.**
+
+Your coding agent fixed a typo and left you `IMPLEMENTATION_PLAN.md`,
+`PHASE_2_SUMMARY.md` and `REFACTOR_COMPLETE.md`. Congratulations. The repo has
+more paperwork than working software.
+
+`fym` is a small CLI that calls this shit out. It flags stray Markdown and agent
+instruction files, reads what they say, and suggests where enforceable rules
+belong: tests, linters, type checks, scripts and CI.
+
+“Please respect the architecture” is a wish. An architecture test is a boundary.
+“Keep it fast” measures fuck all. Write a benchmark.
+
+No API keys. No model calls. No files changed. Just a failing exit code and some
+strongly worded advice.
+
+## What gets bollocked
 
 Two filename rules identify offences; their contents determine suggested replacements.
 
@@ -21,8 +37,27 @@ ignored when suggesting replacements; body line numbers are preserved.
 
 ## Install
 
+Requires **Python 3.13+**.
+
+Run it without adding a project dependency:
+
 ```bash
-uv add --dev fym
+uvx --from fuck-your-markdown fym
+```
+
+Or install it as a tool:
+
+```bash
+uv tool install fuck-your-markdown
+# pip works too
+pip install fuck-your-markdown
+```
+
+For a project development dependency:
+
+```bash
+uv add --dev fuck-your-markdown
+uv run fym
 ```
 
 ## Usage
@@ -53,8 +88,9 @@ cyan paths and yellow line references. Redirected output is plain; `NO_COLOR` is
 
 ## Agent mode
 
-`fym --agent` reads flagged files and groups suggestions by replacement type,
-with file and line references. Repeated matches in a file share one entry.
+`fym` reads flagged files in both modes. `--agent` swaps the swearing for neutral,
+actionable guidance, with the same replacement groups and file and line references.
+Apparently the robots need a fucking HR department. Repeated matches in a file share one entry.
 It recognises architecture, style, typing, contracts, security, performance,
 accessibility, environment setup, documentation requirements and commit conventions.
 Commands can be fenced, inline or plain text. Topic-only headings are referenced
@@ -83,12 +119,44 @@ see [research notes](docs/matcher-research.md) for sources and limitations.
 
 Paths, `--docs`, `--allow` and exit codes work as usual. Clean runs remain silent.
 
-## Pre commit
+## Make it fail in CI
+
+```bash
+uvx --from fuck-your-markdown==0.1.0 fym
+```
+
+For [pre-commit](https://pre-commit.com/), use a local hook. Scan the whole repo so
+files hidden in a quiet corner still get their bollocking:
 
 ```yaml
 repos:
-  - repo: https://github.com/benomahony/fym
-    rev: v0.1.0
+  - repo: local
     hooks:
       - id: fym
+        name: Fuck your markdown
+        entry: fym
+        language: python
+        additional_dependencies: [fuck-your-markdown==0.1.0]
+        pass_filenames: false
+        always_run: true
 ```
+
+## Keep the useful shit
+
+This is deliberately opinionated. A filename is a policy trigger, not proof that
+the document is worthless. The content matcher is heuristic; read the suggestions
+before acting on them.
+
+Keep explanations humans need in `docs/`. Turn enforceable requirements into
+checks. Verify those checks catch a real violation. Then delete the redundant
+fucking prose.
+
+## Development
+
+```bash
+uv sync
+uv run --with pytest pytest
+uv build --no-sources
+```
+
+Source and issues: [github.com/benomahony/fuck-your-markdown](https://github.com/benomahony/fuck-your-markdown).
