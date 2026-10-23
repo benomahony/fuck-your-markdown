@@ -1,6 +1,8 @@
 # fuck-your-markdown
 
-**Fuck your markdown. Ship checks that actually fucking run.**
+**Fuck your markdown. `fym` for short.**
+
+Ship checks that actually fucking run.
 
 Your coding agent fixed a typo and left you `IMPLEMENTATION_PLAN.md`,
 `PHASE_2_SUMMARY.md` and `REFACTOR_COMPLETE.md`. Congratulations. The repo has
@@ -15,6 +17,8 @@ belong: tests, linters, type checks, scripts and CI.
 
 No API keys. No model calls. No files changed. Just a failing exit code and some
 strongly worded advice.
+
+![fym terminal output suggesting architecture tests, acceptance tests, and scripts or CI for rules found in claude.md](https://raw.githubusercontent.com/benomahony/fuck-your-markdown/main/docs/fym-terminal-output.png)
 
 ## What gets bollocked
 
